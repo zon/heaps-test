@@ -1,6 +1,7 @@
--cp src
+-cp client/src
 -lib heaps
 -lib hlsdl
--hl game.hl
+-hl client.hl
+-D resourcesPath=client/res
 -D windowSize=1024x1024
 -main Main
