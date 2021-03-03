@@ -1,0 +1,24 @@
+{ "columns":8,
+ "image":"general.png",
+ "imageheight":64,
+ "imagewidth":64,
+ "margin":0,
+ "name":"general",
+ "spacing":0,
+ "tilecount":64,
+ "tiledversion":"1.4.3",
+ "tileheight":8,
+ "tiles":[
+        {
+         "id":1,
+         "properties":[
+                {
+                 "name":"solid",
+                 "type":"bool",
+                 "value":true
+                }]
+        }],
+ "tilewidth":8,
+ "type":"tileset",
+ "version":1.4
+}

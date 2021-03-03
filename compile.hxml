@@ -1,0 +1,6 @@
+-cp src
+-lib heaps
+-lib hlsdl
+-hl game.hl
+-D windowSize=1024x1024
+-main Main
