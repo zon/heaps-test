@@ -1,7 +1,8 @@
--cp client/src
+-cp haxe/common
+-cp haxe/client
 -lib heaps
 -lib hlsdl
 -hl client.hl
--D resourcesPath=client/res
+-D resourcesPath=haxe/res
 -D windowSize=1024x1024
 -main Main
