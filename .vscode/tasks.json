@@ -1,0 +1,42 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build client",
+			"group": "build",
+			"command": "haxe",
+			"args": [
+				"client.hxml"
+			],
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			]
+		},
+		{
+			"label": "build common",
+			"group": "build",
+			"command": "haxe",
+			"args": [
+				"common.hxml"
+			],
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			]
+		},
+		{
+			"label": "build server",
+			"group": "build",
+			"type": "npm",
+			"script": "build",
+			"path": "server/",
+			"problemMatcher": [],
+			"dependsOn": ["build common"]
+		}
+	]
+}

@@ -1,1 +1,4 @@
-*.hl
+client.hl
+server/dist
+server-example
+node_modules

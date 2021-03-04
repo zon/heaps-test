@@ -1,4 +1,3 @@
-import h2d.Object;
 import haxe.ds.Vector;
 
 class Stage {

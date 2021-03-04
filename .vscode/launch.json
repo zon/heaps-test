@@ -1,15 +1,27 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-        {
-            "name": "HashLink",
-            "request": "launch",
-            "type": "hl",
-            "cwd": "${workspaceFolder}",
-            "preLaunchTask": {
-                "type": "haxe",
-                "args": "active configuration"
-            }
-        }
+		{
+			"name": "Client",
+			"request": "launch",
+			"type": "hl",
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "build client"
+		},
+		{
+			"name": "Server",
+			"program": "${workspaceFolder}/server/dist/app.js",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"type": "pwa-node"
+		}
+	],
+	"compounds": [
+		{
+			"name": "Server and Client",
+			"configurations": ["Server", "Client"]
+		}
 	]
 }
