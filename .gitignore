@@ -1,4 +1,5 @@
 client.hl
+server/src/common.js
 server/dist
 server-example
 node_modules

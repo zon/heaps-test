@@ -1,3 +1,4 @@
+@:expose
 class StageTile {
 	public var x: Int;
 	public var y: Int;

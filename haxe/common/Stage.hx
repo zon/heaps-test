@@ -1,5 +1,6 @@
 import haxe.ds.Vector;
 
+@:expose
 class Stage {
 	public var size: Int;
 	public var tiles: Vector<Vector<StageTile>>;
