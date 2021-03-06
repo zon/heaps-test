@@ -1,14 +1,16 @@
-import {Server} from 'colyseus'
-import {createServer} from 'http'
-import express from 'express'
+import {Server} from 'colyseus';
+import {createServer} from 'http';
+import Koa from 'koa';
 
-const port = Number(process.env.port) || 3000
+const app = new Koa();
+const port = Number(process.env.port) || 3000;
 
-const app = express()
-app.use(express.json())
+app.use(ctx => {
+	ctx.body = true;
+});
 
-const gameServer = new Server({
-	server: createServer(app)
-})
-gameServer.listen(port)
+const server = new Server({
+	server: createServer(app.callback())
+});
+server.listen(port)
 console.log(`Listening on ws://localhost:${port}`)

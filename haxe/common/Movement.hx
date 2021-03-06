@@ -1,47 +1,44 @@
 class Movement {
 
-	public static function update(world: World, dt: Float) {
-		for (entity in world.entities) {
-			updateEntity(world.stage, entity, dt);
-		}
-	}
+	public static function update(stage: Stage, entity: Entity, dt: Float) {
+		entity.vx = entity.mx * entity.speed;
+		entity.vy = entity.my * entity.speed;
 
-	static function updateEntity(stage: Stage, entity: Entity, dt: Float) {
 		var dx = entity.vx * dt;
 		var dy = entity.vy * dt;
 
 		entity.x += dx;
 
-		var left = entity.left();
-		var right = entity.right();
-		var bottom = entity.bottom();
-		var top = entity.top();
+		var left = Bounds.left(entity);
+		var right = Bounds.right(entity);
+		var bottom = Bounds.bottom(entity);
+		var top = Bounds.top(entity);
 
 		if (entity.vx > 0) {
-			if (stage.solidArea(right, top, right, bottom)) {
+			if (StageQuery.solidArea(stage, right, top, right, bottom)) {
 				entity.x = right - entity.radius;
 			}
 
 		} else if (entity.vx < 0) {
-			if (stage.solidArea(left, top, left, bottom)) {
+			if (StageQuery.solidArea(stage, left, top, left, bottom)) {
 				entity.x = left + 1 + entity.radius;
 			}
 		}
 
 		entity.y += dy;
 
-		left = entity.left();
-		right = entity.right();
-		bottom = entity.bottom();
-		top = entity.top();
+		left = Bounds.left(entity);
+		right = Bounds.right(entity);
+		bottom = Bounds.bottom(entity);
+		top = Bounds.top(entity);
 
 		if (entity.vy > 0) {
-			if (stage.solidArea(left, bottom, right, bottom)) {
+			if (StageQuery.solidArea(stage, left, bottom, right, bottom)) {
 				entity.y = bottom - entity.radius;
 			}
 
 		} else if (entity.vy < 0) {
-			if (stage.solidArea(left, top, right, top)) {
+			if (StageQuery.solidArea(stage, left, top, right, top)) {
 				entity.y = top + 1 + entity.radius;
 			}
 		}

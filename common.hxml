@@ -1,9 +1,10 @@
 -cp haxe/common
 
+Bounds
 Entity
 Movement
+Solid
 Stage
-StageTile
-World
+StageQuery
 
 -js server/src/common.js
