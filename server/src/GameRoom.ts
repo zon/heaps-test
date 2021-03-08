@@ -1,5 +1,5 @@
 import { Room, Client } from 'colyseus'
-import { Movement } from 'common';
+import { Movement } from './common/Movement';
 import { EntityState } from './states/EntityState'
 import { GameState } from './states/GameState'
 import { StageState } from './states/StageState'
@@ -33,8 +33,8 @@ export class GameRoom extends Room<GameState> {
 
 	onMove(client: Client, msg: any) {
 		const entity = this.state.entities.get(client.sessionId);
-		entity.mx = msg.mx;
-		entity.my = msg.my;
+		entity.mx = msg.x;
+		entity.my = msg.y;
 	}
 
 	update(dt: number) {

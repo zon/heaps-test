@@ -1,7 +1,10 @@
 import {Schema, type} from '@colyseus/schema';
-import { Solid } from 'common';
 
-export class StageTileState extends Schema implements Solid {
+export class StageTileState extends Schema {
+	@type('int64')
+	x = 0
+	@type('int64')
+	y = 0
 	@type('boolean')
 	solid = false
 }

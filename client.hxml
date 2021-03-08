@@ -1,5 +1,7 @@
 -cp haxe/common
+-cp haxe/schema
 -cp haxe/client
+-lib colyseus
 -lib heaps
 -lib hlsdl
 -hl client.hl

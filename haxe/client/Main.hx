@@ -1,30 +1,40 @@
 import hxd.App;
+import io.colyseus.Client;
+import io.colyseus.Room;
 
 class Main extends App {
-	public var res: ResMap;
-	public var world: World;
-	public var view: WorldView;
-	public var player: Player;
+	var client = new Client('ws://localhost:3000');
+	var res: ResMap;
+	var game: Game;
 
 	override function init() {
-		this.res = new ResMap();
-		this.world = new World();
-		this.view = new WorldView(s2d, world, res); 
+		res = new ResMap();
 
-		createPlayer();
-	}
+		client.joinOrCreate('entry', [], GameState, function(err, room) {
+			if (err != null) {
+				trace(err, err.code, err.message);
+				return;
+			}
 
-	function createPlayer(x = 8, y = 8) {
-		var entity = this.world.createEntity(x, y);
-		this.player = new Player(entity);
-		this.view.createEntity(entity);
-		return this.player;
+			trace('room', room.id, 'joined');
+
+			game = new Game(s2d, room, res);
+
+			room.onLeave += function() {
+				trace('room', room.id, 'left');
+				game = null;
+			};
+
+			room.onError += function(code, message) {
+				trace('room error', code, message);
+			}
+		});
 	}
 
 	override function update(dt: Float) {
-		this.player.update(dt);
-		this.world.update(dt);
-		// this.view.update(dt);
+		if (game != null) {
+			game.update(dt);
+		}
 	}
 
 	static function main() {

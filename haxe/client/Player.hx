@@ -1,26 +1,36 @@
 import hxd.Key;
+import io.colyseus.Room;
 
 class Player {
-	public var entity: Entity;
+	public var room: Room<GameState>;
+	public var entity: EntityState;
+	public var mx: Float = 0;
+	public var my: Float = 0;
 
-	public function new(entity) {
+	public function new(room, entity) {
+		this.room = room;
 		this.entity = entity;
 	}
 
 	public function update(dt: Float) {
-		if (Key.isDown(Key.A)) {
-			entity.mx = -1;
+		final x: Float = if (Key.isDown(Key.A)) {
+			-1;
 		} else if (Key.isDown(Key.D)) {
-			entity.mx = 1;
+			1;
 		} else {
-			entity.mx = 0;
+			0;
 		}
-		if (Key.isDown(Key.W)) {
-			entity.my = -1;
+		final y: Float = if (Key.isDown(Key.W)) {
+			-1;
 		} else if (Key.isDown(Key.S)) {
-			entity.my = 1;
+			1;
 		} else {
-			entity.my = 0;
+			0;
+		}
+		if (x != mx || y != my) {
+			mx = x;
+			my = y;
+			room.send('move', {x: x, y: y});
 		}
 	}
 

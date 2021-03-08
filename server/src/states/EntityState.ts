@@ -1,7 +1,6 @@
 import {Schema, type} from '@colyseus/schema';
-import { Entity } from 'common';
 
-export class EntityState extends Schema implements Entity {
+export class EntityState extends Schema {
 	@type('string')
 	id: string;
 	@type('float64')

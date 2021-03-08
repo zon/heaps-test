@@ -1,6 +1,11 @@
-class Movement {
+import { EntityState } from '../states/EntityState';
+import { StageState } from '../states/StageState';
+import { Bounds } from './Bounds';
+import { StageQuery } from './StageQuery';
 
-	public static function update(stage: StageState, entity: EntityState, dt: Float) {
+export class Movement {
+
+	public static update(stage: StageState, entity: EntityState, dt: number) {
 		entity.vx = entity.mx * entity.speed;
 		entity.vy = entity.my * entity.speed;
 
