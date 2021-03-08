@@ -6,16 +6,16 @@
 			"request": "launch",
 			"type": "hl",
 			"cwd": "${workspaceFolder}",
+			"program": "client.hl",
 			"preLaunchTask": "build client"
 		},
 		{
 			"name": "Server",
-			"program": "${workspaceFolder}/server/dist/app.js",
 			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"type": "pwa-node",
+			"type": "hl",
+			"cwd": "${workspaceFolder}",
+			"program": "server.hl",
+			"port": 3353,
 			"preLaunchTask": "build server"
 		}
 	],

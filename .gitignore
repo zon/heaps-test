@@ -1,6 +1,4 @@
 client.hl
-server/src/common.js
-server/dist
-server-example
-haxe/schema
+server.hl
 node_modules
+build

@@ -1,0 +1,6 @@
+-cp haxe/common
+-cp haxe/server
+-lib udprotean
+-lib bytetype
+-hl server.hl
+-main server.Main

@@ -1,10 +1,10 @@
 -cp haxe/common
--cp haxe/schema
 -cp haxe/client
--lib colyseus
 -lib heaps
+-lib udprotean
+-lib bytetype
 -lib hlsdl
 -hl client.hl
 -D resourcesPath=haxe/res
 -D windowSize=1024x1024
--main Main
+-main client.Main

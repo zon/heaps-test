@@ -18,10 +18,16 @@
 		{
 			"label": "build server",
 			"group": "build",
-			"type": "npm",
-			"script": "build",
-			"path": "server/",
-			"problemMatcher": []
+			"command": "haxe",
+			"args": [
+				"server.hxml"
+			],
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			]
 		}
 	]
 }
