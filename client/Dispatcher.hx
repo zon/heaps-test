@@ -1,6 +1,9 @@
 package client;
 
+import common.messages.EntityMoveMessage;
+import common.Stage;
 import common.Config;
+import common.Entity;
 import client.Main;
 import client.Input;
 import client.Client;
@@ -37,18 +40,31 @@ class Dispatcher {
 		client.disconnect();
 	}
 
-	public function onStage(stage) {
-		game.onStage(stage);
-		view.onStage(stage);
+	public function setStage(stage: Stage) {
+		trace('Set stage '+ stage.length);
+		game.setStage(stage);
+		view.setStage(stage);
 	}
 
-	public function addEntity(key, entity) {
-		game.addEntity(key, entity);
-		view.addEntity(key, entity);
+	public function addEntity(entity: Entity) {
+		trace('Add entity '+ entity.id);
+		input.addEntity(entity);
+		game.addEntity(entity);
+		view.addEntity(entity);
 	}
 
-	public function onPlayerMove(x, y) {
-		client.onPlayerMove(x, y);
+	public function moveEntity(message: EntityMoveMessage) {
+		game.moveEntity(message);
+	}
+
+	public function removeEntity(id: Int) {
+		trace('Remove entity '+ id);
+		input.removeEntity(id);
+		game.removeEntity(id);
+	}
+
+	public function movePlayer(x, y) {
+		client.movePlayer(x, y);
 	}
 
 }

@@ -28,4 +28,8 @@ class Dispatcher {
 		server.stop();
 	}
 
+	public function sendAll(message, sendNow = true) {
+		server.sendAll(message, sendNow);
+	}
+
 }

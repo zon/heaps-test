@@ -9,9 +9,9 @@ class StageView {
 	public var stage: Stage;
 	public var group: TileGroup;
 
-	public function new(parent: Object, stage: Stage, res: ResMap) {
+	public function new(stage: Stage, res: ResMap) {
 		this.stage = stage;
-		group = new TileGroup(res.general, parent);
+		group = new TileGroup(res.general);
 		for (t in stage.tiles) {
 			var x = t.x * View.tile;
 			var y = t.y * View.tile;

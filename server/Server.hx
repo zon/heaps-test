@@ -1,6 +1,5 @@
 package server;
 
-import haxe.Int32;
 import udprotean.server.UDProteanClientBehavior;
 import udprotean.server.UDProteanServer;
 import common.Config;
@@ -9,9 +8,9 @@ import server.ClientBehavior;
 class Server {
 	public var dispatcher: Dispatcher;
 	public var peer: UDProteanServer;
-	public var clients = new Map<Int32, ClientBehavior>();
+	public var clients = new Map<Int, ClientBehavior>();
 
-	var autoId: Int32 = 0;
+	var autoId: Int = 0;
 
 	public function new(dispatcher) {
 		this.dispatcher = dispatcher;
@@ -26,11 +25,24 @@ class Server {
 	}
 
 	public function update() {
+		for (entity in dispatcher.game.entities) {
+			if (entity.dirty) {
+				entity.dirty = false;
+				var msg = entity.toMoveMessage();
+				sendAll(msg);
+			}
+		}
 		peer.update();
 	}
 
 	public function stop() {
 		peer.stop();
+	}
+
+	public function sendAll(message, sendNow = true) {
+		for (client in clients) {
+			client.send(message, sendNow);
+		}
 	}
 
 	function onConnected(udpc: UDProteanClientBehavior) {

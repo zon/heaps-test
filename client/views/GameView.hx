@@ -28,14 +28,15 @@ class GameView {
 		entities.hasUpdate = true;
 	}
 
-	public function onStage(stage) {
+	public function setStage(stage) {
 		if (this.stage != null) {
 			this.stage.remove();
 		}
-		this.stage = new StageView(obj, stage, res);
+		this.stage = new StageView(stage, res);
+		obj.addChildAt(this.stage.group, 0);
 	}
 
-	public function addEntity(key, entity) {
+	public function addEntity(entity) {
 		var view = new EntityView(entity, res);
 		entities.add(view);
 	}

@@ -3,6 +3,7 @@ package common.messages;
 import haxe.io.Bytes;
 
 @:build(bytetype.ByteTypeBuilder.build())
-abstract TextMessage(Bytes) to Bytes {
-	@length(16) var body: String;
+abstract PlayerMoveMessage(Bytes) to Bytes {
+	var x: Float;
+	var y: Float;
 }
