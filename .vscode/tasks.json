@@ -28,6 +28,18 @@
 				"$haxe-error",
 				"$haxe-trace"
 			]
+		},
+		{
+			"label": "build all",
+			"dependsOn": [
+				"build client",
+				"build server"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }

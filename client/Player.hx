@@ -1,14 +1,15 @@
+package client;
+
+import client.Dispatcher;
+import common.Entity;
 import hxd.Key;
-import io.colyseus.Room;
 
 class Player {
-	public var room: Room<GameState>;
-	public var entity: EntityState;
-	public var mx: Float = 0;
-	public var my: Float = 0;
+	public var dispatcher: Dispatcher;
+	public var entity: Entity;
 
-	public function new(room, entity) {
-		this.room = room;
+	public function new(dispatcher, entity) {
+		this.dispatcher = dispatcher;
 		this.entity = entity;
 	}
 
@@ -27,10 +28,10 @@ class Player {
 		} else {
 			0;
 		}
-		if (x != mx || y != my) {
-			mx = x;
-			my = y;
-			room.send('move', {x: x, y: y});
+		if (x != entity.mx || y != entity.my) {
+			entity.mx = x;
+			entity.my = y;
+			dispatcher.onPlayerMove(x, y);
 		}
 	}
 

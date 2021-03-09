@@ -5,6 +5,6 @@
 -lib bytetype
 -lib hlsdl
 -hl client.hl
--D resourcesPath=haxe/res
+-D resourcesPath=res
 -D windowSize=1024x1024
 -main client.Main

@@ -1,4 +1,4 @@
-package common;
+package common.messages;
 
 import haxe.io.Bytes;
 

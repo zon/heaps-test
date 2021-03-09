@@ -1,3 +1,5 @@
+package client.views;
+
 import h2d.Tile;
 import hxd.Res;
 

@@ -1,49 +1,44 @@
 package server;
 
-import bytetype.ByteType;
+import common.Stage;
 import udprotean.server.UDProteanServer;
-import haxe.io.Bytes;
-import udprotean.server.UDProteanClientBehavior;
 import common.Config;
-import common.TextMessage;
-
-class EchoBehavior extends UDProteanClientBehavior {
-
-	override function onConnect() {
-		trace('Connected');
-	}
-
-	override function onMessage(message:Bytes) {
-		trace('Message:', message.toString());
-
-		switch ByteType.getCode(message) {
-			case TextMessage.code:
-				var text: TextMessage = cast message;
-				trace('Text: '+ text.body);
-				send(new TextMessage(text.body));
-		}
-	}
-
-	override function onDisconnect() {
-		trace('Disconnected');
-	}
-
-}
 
 class Main {
+	public var stage: Stage;
+	public var peer: UDProteanServer;
+	
+	var running = true;
+	
+	public static var current: Main;
 
-	static function main() {
-		var server = new UDProteanServer('0.0.0.0', Config.port, EchoBehavior);
-		server.start();
-
-		trace('Listening: '+ Config.port);
+	public function new() {
+		stage = new Stage(16);
+		stage.enclose();
+		stage.get(6, 6).solid = true;
 		
-		var running = true;
+		peer = new UDProteanServer('0.0.0.0', Config.port, ClientBehavior);
+	}
+
+	public function start() {
+		peer.start();
+		trace('Listening on: '+ Config.port);
+		
 		while(running) {
-			server.update();
+			peer.update();
 		}
 		
-		server.stop();
+		peer.stop();
+	}
+
+	public function stop() {
+		running = false;
+	}
+
+	static function main() {
+		var server = new Main();
+		current = server;
+		server.start();
 	}
 
 }

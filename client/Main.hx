@@ -1,52 +1,22 @@
 package client;
 
-import common.TextMessage;
-import bytetype.ByteType;
-import haxe.io.Bytes;
-import hxd.Key;
-import common.Config;
 import hxd.App;
-import udprotean.client.UDProteanClient;
-
-class Client extends UDProteanClient {
-
-	override function onConnect() {
-		trace('Connected');
-	}
-
-	override function onMessage(message:Bytes) {
-		trace('Message: '+ message.toString());
-
-		switch ByteType.getCode(message) {
-			case TextMessage.code:
-				var text: TextMessage = cast message;
-				trace('Text: '+ text.body);
-		}
-	}
-
-	override function onDisconnect() {
-		trace('Disconnected');
-	}
-
-}
+import client.Dispatcher;
 
 class Main extends App {
-	var client: UDProteanClient;
+	var dispatcher: Dispatcher;
 
 	override function init() {
-		client = new Client(Config.host, Config.port);
-		client.connect();
+		dispatcher = new Dispatcher(this);
+		dispatcher.init();
 	}
 
 	override function update(dt: Float) {
-		client.update();
-		if (Key.isReleased(Key.SPACE)) {
-			client.send(new TextMessage('hey'));
-		}
+		dispatcher.update(dt);
 	}
 
 	override function dispose() {
-		client.disconnect();
+		dispatcher.dispose();
 		super.dispose();
 	}
 
