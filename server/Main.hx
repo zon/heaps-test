@@ -1,44 +1,45 @@
 package server;
 
-import common.Stage;
-import udprotean.server.UDProteanServer;
-import common.Config;
+import haxe.Timer;
+import server.Dispatcher;
 
 class Main {
-	public var stage: Stage;
-	public var peer: UDProteanServer;
-	
+	public var dispatcher: Dispatcher;
+
+	var previous: Float;
 	var running = true;
-	
-	public static var current: Main;
 
 	public function new() {
-		stage = new Stage(16);
-		stage.enclose();
-		stage.get(6, 6).solid = true;
-		
-		peer = new UDProteanServer('0.0.0.0', Config.port, ClientBehavior);
+		dispatcher = new Dispatcher(this);
 	}
 
 	public function start() {
-		peer.start();
-		trace('Listening on: '+ Config.port);
+		previous = Timer.stamp();
+
+		dispatcher.start();
 		
 		while(running) {
-			peer.update();
+			var now = Timer.stamp();
+			var dt = now - previous;
+			previous = now;
+			update(dt);
 		}
 		
-		peer.stop();
+		stop();
 	}
 
 	public function stop() {
+		dispatcher.stop();
 		running = false;
 	}
 
+	function update(dt) {
+		dispatcher.update(dt);
+	}
+
 	static function main() {
-		var server = new Main();
-		current = server;
-		server.start();
+		var app = new Main();
+		app.start();
 	}
 
 }

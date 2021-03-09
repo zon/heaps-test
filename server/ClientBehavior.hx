@@ -1,19 +1,17 @@
 package server;
 
+import haxe.Int32;
 import haxe.io.Bytes;
 import common.messages.TextMessage;
 import bytetype.ByteType;
 import udprotean.server.UDProteanClientBehavior;
 
 class ClientBehavior extends UDProteanClientBehavior {
-	var ctx: Main;
+	public var id: Int32;
+	public var dispatcher: Dispatcher;
 
 	override function onConnect() {
-		trace('Connected '+ peerID);
-
-		ctx = Main.current;
-
-		ctx.stage.send(this);
+		dispatcher.game.stage.send(this);
 	}
 
 	override function onMessage(message: Bytes) {
@@ -28,7 +26,7 @@ class ClientBehavior extends UDProteanClientBehavior {
 	}
 
 	override function onDisconnect() {
-		trace('Disconnected '+ peerID);
+
 	}
  
 }
