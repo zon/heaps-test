@@ -3,12 +3,7 @@ package common;
 class Movement {
 
 	public static function update(stage: Stage, entity: Entity, dt: Float) {
-		entity.vx = entity.mx * entity.speed;
-		entity.vy = entity.my * entity.speed;
-
 		var dx = entity.vx * dt;
-		var dy = entity.vy * dt;
-
 		entity.x += dx;
 
 		var left = Bounds.left(entity);
@@ -27,6 +22,7 @@ class Movement {
 			}
 		}
 
+		var dy = entity.vy * dt;
 		entity.y += dy;
 
 		left = Bounds.left(entity);

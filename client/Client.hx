@@ -6,8 +6,8 @@ import udprotean.client.UDProteanClient;
 import common.messages.*;
 import common.Player;
 import common.Stage;
-import common.Entity;
 import client.Dispatcher;
+import client.ClientEntity;
 
 class Client extends UDProteanClient {
 	public var dispatcher: Dispatcher;
@@ -40,11 +40,15 @@ class Client extends UDProteanClient {
 
 			case EntityAddMessage.code:
 				var m: EntityAddMessage = cast message;
-				dispatcher.addEntity(Entity.parse(m));
+				dispatcher.addEntity(ClientEntity.parse(m));
 
 			case EntityMoveMessage.code:
 				var m: EntityMoveMessage = cast message;
-				dispatcher.moveEntity(m);
+				if (player != null && m.id == player.id) {
+					dispatcher.reconcilePlayerEntity(m);
+				} else {
+					dispatcher.moveEntity(m);
+				}
 
 			case EntityRemoveMessage.code:
 				var m: EntityRemoveMessage = cast message;
@@ -56,8 +60,8 @@ class Client extends UDProteanClient {
 		trace('Disconnected');
 	}
 
-	public function movePlayer(x, y) {
-		send(new PlayerMoveMessage(x, y), false);
+	public function sendCommand(command) {
+		send(command, false);
 	}
 
 }

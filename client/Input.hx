@@ -2,12 +2,12 @@ package client;
 
 import hxd.Key;
 import client.Dispatcher;
+import client.ClientEntity;
 import common.Player;
-import common.Entity;
 
 class Input {
 	var dispatcher: Dispatcher;
-	var entity: Entity;
+	var entity: ClientEntity;
 
 	var player(get, never): Player;
 
@@ -19,7 +19,7 @@ class Input {
 		this.dispatcher = dispatcher;
 	}
 
-	public function addEntity(entity: Entity) {
+	public function addEntity(entity: ClientEntity) {
 		if (player == null) return;
 		if (entity.player == player.id) {
 			this.entity = entity;
@@ -48,11 +48,8 @@ class Input {
 		} else {
 			0;
 		}
-		if (x != entity.mx || y != entity.my) {
-			entity.mx = x;
-			entity.my = y;
-			dispatcher.movePlayer(x, y);
-		}
+		
+		dispatcher.sendCommand(entity.move(x, y, dt));
 	}
 
 }

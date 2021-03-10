@@ -1,16 +1,16 @@
 package server;
 
 import haxe.io.Bytes;
-import common.Entity;
 import common.messages.PlayerMessage;
-import common.messages.PlayerMoveMessage;
+import common.messages.CommandMessage;
+import server.ServerEntity;
 import bytetype.ByteType;
 import udprotean.server.UDProteanClientBehavior;
 
 class ClientBehavior extends UDProteanClientBehavior {
 	public var id: Int;
 	public var dispatcher: Dispatcher;
-	public var entity: Entity;
+	public var entity: ServerEntity;
 
 	override function onConnect() {
 		send(new PlayerMessage(id));
@@ -23,10 +23,9 @@ class ClientBehavior extends UDProteanClientBehavior {
 
 	override function onMessage(message: Bytes) {
 		switch ByteType.getCode(message) {
-			case PlayerMoveMessage.code:
-				var move: PlayerMoveMessage = cast message;
-				entity.mx = move.x;
-				entity.my = move.y;
+			case CommandMessage.code:
+				var command: CommandMessage = cast message;
+				dispatcher.updateEntity(entity, command);
 		}
 	}
 

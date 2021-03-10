@@ -18,9 +18,12 @@ class Dispatcher {
 	public function start() {
 		server.start();
 	}
+	
+	public function updateEntity(entity, command) {
+		game.updateEntity(entity, command);
+	}
 
-	public function update(dt) {
-		game.update(dt);
+	public function update(dt: Float) {
 		server.update();
 	}
 

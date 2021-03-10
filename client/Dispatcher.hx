@@ -1,5 +1,6 @@
 package client;
 
+import common.messages.CommandMessage;
 import common.messages.EntityMoveMessage;
 import common.Stage;
 import common.Config;
@@ -46,7 +47,7 @@ class Dispatcher {
 		view.setStage(stage);
 	}
 
-	public function addEntity(entity: Entity) {
+	public function addEntity(entity: ClientEntity) {
 		trace('Add entity '+ entity.id);
 		input.addEntity(entity);
 		game.addEntity(entity);
@@ -57,14 +58,18 @@ class Dispatcher {
 		game.moveEntity(message);
 	}
 
+	public function reconcilePlayerEntity(message: EntityMoveMessage) {
+		game.reconcilePlayerEntity(message);
+	}
+
 	public function removeEntity(id: Int) {
 		trace('Remove entity '+ id);
 		input.removeEntity(id);
 		game.removeEntity(id);
 	}
 
-	public function movePlayer(x, y) {
-		client.movePlayer(x, y);
+	public function sendCommand(command: CommandMessage) {
+		client.sendCommand(command);
 	}
 
 }

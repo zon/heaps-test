@@ -2,14 +2,14 @@ package client;
 
 import common.messages.EntityMoveMessage;
 import common.Stage;
-import common.Entity;
 import common.Movement;
 import client.Dispatcher;
+import client.ClientEntity;
 
 class Game {
 	public var dispatcher: Dispatcher;
 	public var stage: Stage;
-	public var entities = new Map<Int, Entity>();
+	public var entities = new Map<Int, ClientEntity>();
 
 	public function new(dispatcher: Dispatcher) {
 		this.dispatcher = dispatcher;
@@ -25,14 +25,20 @@ class Game {
 		this.stage = stage;
 	}
 
-	public function addEntity(entity: Entity) {
+	public function addEntity(entity: ClientEntity) {
 		entities[entity.id] = entity;
 	}
 
 	public function moveEntity(msg: EntityMoveMessage) {
 		var entity = entities.get(msg.id);
 		if (entity == null) return;
-		entity.load(msg);
+		entity.apply(msg);
+	}
+
+	public function reconcilePlayerEntity(msg: EntityMoveMessage) {
+		var entity = entities.get(msg.id);
+		if (entity == null) return;
+		entity.reconcile(stage, msg);
 	}
 
 	public function removeEntity(id: Int) {
