@@ -1,7 +1,4 @@
-## Client
+# Plan
 
-* Main
-* Game
-* Input
-* Client
-* GameView
+* Entity collision
+* Entity animation

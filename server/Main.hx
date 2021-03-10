@@ -1,6 +1,7 @@
 package server;
 
 import haxe.Timer;
+import common.Config;
 import server.Dispatcher;
 
 class Main {
@@ -23,6 +24,11 @@ class Main {
 			var dt = now - previous;
 			previous = now;
 			update(dt);
+			now = Timer.stamp();
+			var delay = 1 / Config.sendRate - (now - previous);
+			if (delay > 0) {
+				Sys.sleep(delay);
+			}
 		}
 		
 		stop();
