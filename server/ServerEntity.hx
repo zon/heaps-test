@@ -2,15 +2,16 @@ package server;
 
 import common.Entity;
 import common.messages.EntityAddMessage;
+import common.messages.EntityReconcileMessage;
+import common.messages.EntityPositionMessage;
 import common.messages.EntityRemoveMessage;
-import common.messages.EntityMoveMessage;
 
 class ServerEntity extends Entity {
 
 	public function toAddMessage() {
 		return new EntityAddMessage(
 			id,
-			player,
+			playerId,
 			radius,
 			speed,
 			x,
@@ -20,8 +21,12 @@ class ServerEntity extends Entity {
 		);
 	}
 
-	public function toMoveMessage() {
-		return new EntityMoveMessage(id, command.index, x, y, vx, vy);
+	public function toReconcileMessage() {
+		return new EntityReconcileMessage(command.index, x, y, vx, vy);
+	}
+
+	public function toPositionMessage() {
+		return new EntityPositionMessage(id, x, y);
 	}
 
 	public function toRemoveMessage() {

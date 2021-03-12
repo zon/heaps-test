@@ -4,6 +4,7 @@ import h2d.SpriteBatch;
 import h2d.Object;
 import client.Dispatcher;
 import client.views.StageView;
+import client.Console;
 
 class GameView {
 	public var dispatcher: Dispatcher;
@@ -12,6 +13,7 @@ class GameView {
 	public var obj: Object;
 	public var stage: StageView;
 	public var entities: SpriteBatch;
+	public var console: Console;
 
 	public function new(dispatcher, game) {
 		this.dispatcher = dispatcher;
@@ -26,6 +28,12 @@ class GameView {
 
 		entities = new SpriteBatch(res.general, obj);
 		entities.hasUpdate = true;
+
+		console = new Console(dispatcher.app.s2d);
+	}
+
+	public function update() {
+		console.update();
 	}
 
 	public function setStage(stage) {

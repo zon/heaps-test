@@ -25,7 +25,7 @@ class ClientBehavior extends UDProteanClientBehavior {
 		switch ByteType.getCode(message) {
 			case CommandMessage.code:
 				var command: CommandMessage = cast message;
-				dispatcher.updateEntity(entity, command);
+				dispatcher.reconcileEntity(entity, command);
 		}
 	}
 

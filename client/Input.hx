@@ -7,27 +7,17 @@ import common.Player;
 
 class Input {
 	var dispatcher: Dispatcher;
-	var entity: ClientEntity;
-
-	var player(get, never): Player;
-
-	function get_player() {
-		return dispatcher.client.player;
-	}
+	var entity: PlayerEntity;
 
 	public function new(dispatcher) {
 		this.dispatcher = dispatcher;
 	}
 
-	public function addEntity(entity: ClientEntity) {
-		if (player == null) return;
-		if (entity.player == player.id) {
-			this.entity = entity;
-		}
+	public function addPlayer(entity) {
+		this.entity = entity;
 	}
 
-	public function removeEntity(id: Int) {
-		if (entity == null || entity.id != id) return;
+	public function removePlayer() {
 		entity = null;
 	}
 

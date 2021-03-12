@@ -19,8 +19,8 @@ class Dispatcher {
 		server.start();
 	}
 	
-	public function updateEntity(entity, command) {
-		game.updateEntity(entity, command);
+	public function reconcileEntity(entity, command) {
+		game.reconcileEntity(entity, command);
 	}
 
 	public function update(dt: Float) {
@@ -33,6 +33,14 @@ class Dispatcher {
 
 	public function sendAll(message, sendNow = true) {
 		server.sendAll(message, sendNow);
+	}
+
+	public function sendOthers(entityId, message, sendNow = true) {
+		server.sendOthers(entityId, message, sendNow);
+	}
+
+	public function sendPlayer(playerId, message, sendNow = true) {
+		server.sendPlayer(playerId, message, sendNow);
 	}
 
 }

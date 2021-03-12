@@ -1,7 +1,6 @@
 package client;
 
 import common.messages.CommandMessage;
-import common.messages.EntityMoveMessage;
 import common.Stage;
 import common.Config;
 import common.Entity;
@@ -35,6 +34,7 @@ class Dispatcher {
 		input.update(dt);
 		client.update();
 		game.update(dt);
+		view.update();
 	}
 
 	public function dispose() {
@@ -47,28 +47,39 @@ class Dispatcher {
 		view.setStage(stage);
 	}
 
-	public function addEntity(entity: ClientEntity) {
-		trace('Add entity '+ entity.id);
-		input.addEntity(entity);
-		game.addEntity(entity);
+	public function addOther(entity: OtherEntity) {
+		trace('Add other ${entity.id}');
+		game.addOther(entity);
 		view.addEntity(entity);
 	}
 
-	public function moveEntity(message: EntityMoveMessage) {
-		game.moveEntity(message);
+	public function addPlayer(entity: PlayerEntity) {
+		trace('Add player ${entity.id}');
+		input.addPlayer(entity);
+		game.addPlayer(entity);
+		view.addEntity(entity);
 	}
 
-	public function reconcilePlayerEntity(message: EntityMoveMessage) {
-		game.reconcilePlayerEntity(message);
+	public function positionOther(message) {
+		game.positionOther(message);
 	}
 
-	public function removeEntity(id: Int) {
-		trace('Remove entity '+ id);
-		input.removeEntity(id);
-		game.removeEntity(id);
+	public function reconcilePlayer(message) {
+		game.reconcilePlayer(message);
 	}
 
-	public function sendCommand(command: CommandMessage) {
+	public function removeOther(id: Int) {
+		trace('Remove other $id');
+		game.removeOther(id);
+	}
+
+	public function removePlayer(id: Int) {
+		trace('Remove player $id');
+		input.removePlayer();
+		game.removePlayer();
+	}
+
+	public function sendCommand(command) {
 		client.sendCommand(command);
 	}
 

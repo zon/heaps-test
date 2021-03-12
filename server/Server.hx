@@ -28,8 +28,8 @@ class Server {
 		for (entity in dispatcher.game.entities) {
 			if (entity.dirty) {
 				entity.dirty = false;
-				var msg = entity.toMoveMessage();
-				sendAll(msg);
+				var msg = entity.toPositionMessage();
+				sendOthers(entity.id, msg);
 			}
 		}
 		peer.update();
@@ -42,6 +42,22 @@ class Server {
 	public function sendAll(message, sendNow = true) {
 		for (client in clients) {
 			client.send(message, sendNow);
+		}
+	}
+
+	public function sendOthers(entityId, message, sendNow = true) {
+		for (client in clients) {
+			if (client.entity != null && client.entity.id == entityId) continue;
+			client.send(message, sendNow);
+		}
+	}
+
+	public function sendPlayer(playerId, message, sendNow = true) {
+		for (client in clients) {
+			if (client.id == playerId) {
+				client.send(message, sendNow);
+				return;
+			}
 		}
 	}
 

@@ -1,23 +1,31 @@
 package client;
 
-import common.messages.EntityMoveMessage;
+import haxe.Timer;
 import common.Stage;
 import common.Movement;
+import common.messages.EntityPositionMessage;
+import common.messages.EntityReconcileMessage;
 import client.Dispatcher;
-import client.ClientEntity;
+import client.OtherEntity;
+import client.PlayerEntity;
 
 class Game {
 	public var dispatcher: Dispatcher;
 	public var stage: Stage;
-	public var entities = new Map<Int, ClientEntity>();
+	public var others = new Map<Int, OtherEntity>();
+	public var player: PlayerEntity;
 
 	public function new(dispatcher: Dispatcher) {
 		this.dispatcher = dispatcher;
 	}
 
 	public function update(dt) {
-		for (entity in entities) {
-			Movement.update(stage, entity, dt);
+		var now = Timer.stamp();
+		for (other in others) {
+			other.interpolate(now);
+		}
+		if (player != null) {
+			Movement.update(stage, player, dt);
 		}
 	}
 
@@ -25,28 +33,37 @@ class Game {
 		this.stage = stage;
 	}
 
-	public function addEntity(entity: ClientEntity) {
-		entities[entity.id] = entity;
+	public function addOther(entity: OtherEntity) {
+		others[entity.id] = entity;
 	}
 
-	public function moveEntity(msg: EntityMoveMessage) {
-		var entity = entities.get(msg.id);
-		if (entity == null) return;
-		entity.apply(msg);
+	public function addPlayer(entity: PlayerEntity) {
+		player = entity;
 	}
 
-	public function reconcilePlayerEntity(msg: EntityMoveMessage) {
-		var entity = entities.get(msg.id);
-		if (entity == null) return;
-		entity.reconcile(stage, msg);
+	public function positionOther(message: EntityPositionMessage) {
+		var other = others.get(message.id);
+		if (other == null) return;
+		other.apply(message);
 	}
 
-	public function removeEntity(id: Int) {
-		var entity = entities.get(id);
-		if (entity != null) {
-			entity.active = false;
+	public function reconcilePlayer(message: EntityReconcileMessage) {
+		if (player == null) return;
+		player.reconcile(stage, message);
+	}
+
+	public function removeOther(id: Int) {
+		var other = others.get(id);
+		if (other != null) {
+			other.active = false;
 		}
-		entities.remove(id);
+		others.remove(id);
+	}
+
+	public function removePlayer() {
+		if (player == null) return;
+		player.active = false;
+		player = null;
 	}
 
 }
