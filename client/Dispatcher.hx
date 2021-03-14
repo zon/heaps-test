@@ -34,7 +34,7 @@ class Dispatcher {
 		input.update(dt);
 		client.update();
 		game.update(dt);
-		view.update();
+		view.update(dt);
 	}
 
 	public function dispose() {
@@ -71,12 +71,14 @@ class Dispatcher {
 	public function removeOther(id: Int) {
 		trace('Remove other $id');
 		game.removeOther(id);
+		view.removeEntity(id);
 	}
 
 	public function removePlayer(id: Int) {
 		trace('Remove player $id');
 		input.removePlayer();
 		game.removePlayer();
+		view.removeEntity(id);
 	}
 
 	public function sendCommand(command) {

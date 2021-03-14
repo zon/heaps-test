@@ -1,9 +1,7 @@
 package client.views;
 
-import haxe.DynamicAccess;
-
 typedef SpriteData = {
-	var frames: DynamicAccess<FrameData>;
+	var frames: Array<FrameData>;
 	var meta: SpriteMetaData;
 }
 
@@ -27,7 +25,7 @@ typedef FrameSize = {
 typedef SpriteMetaData = {
 	var image: String;
 	var format: String;
-	var frameTags: DynamicAccess<FrameTag>;
+	var frameTags: Array<FrameTag>;
 }
 
 typedef FrameTag = {

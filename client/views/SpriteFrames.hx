@@ -37,15 +37,27 @@ class SpriteFrames {
 		return tiles[index];
 	}
 
-	public function getAnim(name): Anim {
+	public function getTileByTag(name, index = 0) {
+		return getTag(name)[index];
+	}
+
+	public function getTag(name) {
+		var frames = new Array<Tile>();
 		for (tag in data.meta.frameTags) {
 			if (tag.name == name) {
-				var frames = new Array<Tile>();
-				for (i in tag.from...tag.to) {
+				for (i in tag.from...(tag.to + 1)) {
 					frames.push(getTile(i));
 				}
-				return new Anim(frames);
+				break;
 			}
+		}
+		return frames;
+	}
+
+	public function getAnim(name): Anim {
+		var frames = getTag(name);
+		if (frames.length > 0) {
+			return new Anim(frames);
 		}
 		return null;
 	}

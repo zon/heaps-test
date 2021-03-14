@@ -1,5 +1,6 @@
-{ "frames": {
-   "entity 0.aseprite": {
+{ "frames": [
+   {
+    "filename": "entity 0.aseprite",
     "frame": { "x": 0, "y": 0, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +8,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 1.aseprite": {
+   {
+    "filename": "entity 1.aseprite",
     "frame": { "x": 18, "y": 0, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +17,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 2.aseprite": {
+   {
+    "filename": "entity 2.aseprite",
     "frame": { "x": 36, "y": 0, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +26,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 3.aseprite": {
+   {
+    "filename": "entity 3.aseprite",
     "frame": { "x": 54, "y": 0, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +35,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 4.aseprite": {
+   {
+    "filename": "entity 4.aseprite",
     "frame": { "x": 0, "y": 18, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +44,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 5.aseprite": {
+   {
+    "filename": "entity 5.aseprite",
     "frame": { "x": 18, "y": 18, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +53,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 6.aseprite": {
+   {
+    "filename": "entity 6.aseprite",
     "frame": { "x": 36, "y": 18, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +62,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 7.aseprite": {
+   {
+    "filename": "entity 7.aseprite",
     "frame": { "x": 54, "y": 18, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +71,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 8.aseprite": {
+   {
+    "filename": "entity 8.aseprite",
     "frame": { "x": 0, "y": 36, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +80,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 9.aseprite": {
+   {
+    "filename": "entity 9.aseprite",
     "frame": { "x": 18, "y": 36, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +89,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 10.aseprite": {
+   {
+    "filename": "entity 10.aseprite",
     "frame": { "x": 36, "y": 36, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +98,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 11.aseprite": {
+   {
+    "filename": "entity 11.aseprite",
     "frame": { "x": 54, "y": 36, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -95,7 +107,8 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 12.aseprite": {
+   {
+    "filename": "entity 12.aseprite",
     "frame": { "x": 0, "y": 54, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
@@ -103,15 +116,25 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
    },
-   "entity 13.aseprite": {
+   {
+    "filename": "entity 13.aseprite",
     "frame": { "x": 18, "y": 54, "w": 18, "h": 18 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 250
+   },
+   {
+    "filename": "entity 14.aseprite",
+    "frame": { "x": 36, "y": 54, "w": 18, "h": 18 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 250
    }
- },
+ ],
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.2.25-x64",
@@ -121,17 +144,11 @@
   "scale": "1",
   "frameTags": [
    { "name": "stand down", "from": 0, "to": 0, "direction": "forward" },
-   { "name": "stand side", "from": 1, "to": 1, "direction": "forward" },
-   { "name": "walk side", "from": 2, "to": 5, "direction": "forward" },
-   { "name": "walk down", "from": 6, "to": 9, "direction": "forward" },
-   { "name": "walk up", "from": 10, "to": 13, "direction": "forward" }
-  ],
-  "layers": [
-   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" }
-  ],
-  "slices": [
+   { "name": "stand up", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "stand side", "from": 2, "to": 2, "direction": "forward" },
+   { "name": "walk side", "from": 3, "to": 6, "direction": "forward" },
+   { "name": "walk down", "from": 7, "to": 10, "direction": "forward" },
+   { "name": "walk up", "from": 11, "to": 14, "direction": "forward" }
   ]
  }
 }

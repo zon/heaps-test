@@ -12,7 +12,8 @@ class GameView {
 	public var res: ResMap;
 	public var obj: Object;
 	public var stage: StageView;
-	public var entities: SpriteBatch;
+	public var entityLayer: Object;
+	public var entities: Array<EntityView>;
 	public var console: Console;
 
 	public function new(dispatcher, game) {
@@ -26,13 +27,16 @@ class GameView {
 		obj.y = 0;
 		obj.scale(8);
 
-		entities = new SpriteBatch(res.general, obj);
-		entities.hasUpdate = true;
+		entityLayer = new Object(obj);
+		entities = new Array<EntityView>();
 
 		console = new Console(dispatcher.app.s2d);
 	}
 
-	public function update() {
+	public function update(dt) {
+		for (entity in entities) {
+			entity.update(dt);
+		}
 		console.update();
 	}
 
@@ -46,7 +50,20 @@ class GameView {
 
 	public function addEntity(entity) {
 		var view = new EntityView(entity, res);
-		entities.add(view);
+		entityLayer.addChild(view.obj);
+		entities.push(view);
+	}
+
+	public function removeEntity(id) {
+		for (i in 0...entities.length) {
+			var view = entities[i];
+			if (view.entity.id == id) {
+				view.obj.remove();
+				entities.slice(i, 1);
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
