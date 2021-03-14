@@ -7,9 +7,9 @@ class EntityView extends SpriteBatch.BatchElement {
 	public var entity: ClientEntity;
 
 	public function new(entity: ClientEntity, res: ResMap) {
-		var tile = res.getTile(2);
-		tile.dx = View.tile / -2;
-		tile.dy = -View.tile;
+		var tile = res.entity.getTile(0);
+		tile.dx = tile.width / -2;
+		tile.dy = -tile.height;
 		super(tile);
 		this.entity = entity;
 	}

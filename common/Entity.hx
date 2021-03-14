@@ -5,7 +5,7 @@ import common.messages.CommandMessage;
 class Entity {
 	public var id: Int;
 	public var playerId: Int;
-	public var radius: Float = 0.25;
+	public var radius: Float = 0.375;
 	public var speed: Float = 4;
 	public var command = new CommandMessage(0, 0, 0, 0);
 	public var x(default, set): Float = 0;
