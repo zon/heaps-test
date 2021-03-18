@@ -30,6 +30,20 @@
 			]
 		},
 		{
+			"label": "build temp",
+			"group": "build",
+			"command": "haxe",
+			"args": [
+				"temp.hxml"
+			],
+			"problemMatcher": [
+				"$haxe-absolute",
+				"$haxe",
+				"$haxe-error",
+				"$haxe-trace"
+			]
+		},
+		{
 			"label": "build all",
 			"dependsOn": [
 				"build client",

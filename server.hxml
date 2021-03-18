@@ -1,5 +1,5 @@
--cp haxe/common
--cp haxe/server
+-cp common
+-cp server
 -lib udprotean
 -lib bytetype
 -hl server.hl

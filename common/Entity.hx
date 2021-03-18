@@ -14,6 +14,12 @@ class Entity {
 	public var vy: Float = 0;
 	public var dirty = false;
 
+	// last bounds on grid
+	public var gl = 0;
+	public var gr = 0;
+	public var gt = 0;
+	public var gb = 0;
+
 	function set_x(x) {
 		dirty = dirty || this.x != x;
 		return this.x = x;

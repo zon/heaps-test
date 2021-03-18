@@ -4,7 +4,7 @@
 -lib udprotean
 -lib bytetype
 -lib hlsdl
--hl client.hl
+-hl temp.hl
 -D resourcesPath=res
 -D windowSize=1024x1024
--main client.Main
+-main temp.Main
