@@ -22,4 +22,8 @@ class GridNode implements Heapable<GridNode> {
 		return other.heuristic - heuristic;
 	}
 
+	public function toString() {
+		return 'GridNode { $x, $y, $solid }';
+	}
+
 }

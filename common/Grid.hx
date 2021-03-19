@@ -28,12 +28,17 @@ class Grid {
 		}
 	}
 
-	public function get(x, y) {
-		var sx = Math.floor(x / sectionSize);
+	public function get(x, y): Null<GridNode> {
 		var sy = Math.floor(y / sectionSize);
+		if (sy < 0 || sy >= sections.length) return null;
+		var row = sections[sy];
+
+		var sx = Math.floor(x / sectionSize);
+		if (sx < 0 || sx >= row.length) return null;
+		
 		var nx = x % sectionSize;
 		var ny = y % sectionSize;
-		return sections[sy][sx].nodes[ny][nx];
+		return row[sx].get(nx, ny);
 	}
 
 	public function addEntity(entity: Entity) {

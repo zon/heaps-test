@@ -11,8 +11,8 @@ class Pathfinder {
 		this.grid = grid;
 	}
 
-	public function travel(start: GridNode, goal: GridNode) {
-		if (goal.solid) return null;
+	public function travel(start: GridNode, goal: GridNode): Array<GridNode> {
+		if (goal.solid) return [];
 		
 		var criteria = function(n: GridNode) {
 			return n == goal;
@@ -65,7 +65,7 @@ class Pathfinder {
 					var ph = next.heuristic;
 					next.heuristic = nextCost + heuristic(next);
 					if (prevCost != null) {
-						frontier.change(next, ph - next.heuristic)
+						frontier.change(next, ph - next.heuristic);
 					} else {
 						frontier.add(next);
 					}
@@ -98,7 +98,7 @@ class Pathfinder {
 
 	function getPush(arr: Array<GridNode>, x, y) {
 		var node = grid.get(x, y);
-		if (node != null && node.solid)  {
+		if (node != null && !node.solid)  {
 			arr.push(node);
 		}
 	}
