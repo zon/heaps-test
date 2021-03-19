@@ -1,30 +1,39 @@
 package common;
 
+import common.GridNode;
 import common.TilemapData;
-import common.TilesetData;
 import haxe.xml.Access;
 import sys.io.File;
-import haxe.Json;
 import haxe.ds.Vector;
 import common.Bounds;
 import common.GridSection;
 import common.Entity;
 
 class Grid {
+	public var width: Int;
+	public var height: Int;
 	public var sectionSize: Int;
 	public var sections: Vector<Vector<GridSection>>;
 
 	public function new(width: Int, height: Int, sectionSize = 32) {
 		this.sectionSize = sectionSize;
-		var sw = Math.ceil(width / sectionSize);
-		var sh = Math.ceil(height / sectionSize);
-		sections = new Vector<Vector<GridSection>>(sh);
-		for (sy in 0...sh) {
-			sections[sy] = new Vector<GridSection>(sw);
-			for (sx in 0...sw) {
+		this.width = Math.ceil(width / sectionSize);
+		this.height = Math.ceil(height / sectionSize);
+		sections = new Vector<Vector<GridSection>>(this.height);
+		for (sy in 0...this.height) {
+			sections[sy] = new Vector<GridSection>(this.width);
+			for (sx in 0...this.width) {
 				sections[sy][sx] = new GridSection(sx, sy, sectionSize);
 			}
 		}
+	}
+
+	public function get(x, y) {
+		var sx = Math.floor(x / sectionSize);
+		var sy = Math.floor(y / sectionSize);
+		var nx = x % sectionSize;
+		var ny = y % sectionSize;
+		return sections[sy][sx].nodes[ny][nx];
 	}
 
 	public function addEntity(entity: Entity) {
@@ -34,7 +43,7 @@ class Grid {
 		var top = Bounds.top(entity);
 		for (y in top...bottom + 1) {
 			for (x in left...right + 1) {
-				getNode(x, y).entities.push(entity);
+				get(x, y).entities.push(entity);
 			}
 		}
 		entity.gl = left;
@@ -51,17 +60,13 @@ class Grid {
 	public function removeEntity(entity: Entity) {
 		for (y in entity.gt...entity.gb + 1) {
 			for (x in entity.gl...entity.gr + 1) {
-				getNode(x, y).entities.remove(entity);
+				get(x, y).entities.remove(entity);
 			}
 		}
 	}
 
-	function getNode(x, y) {
-		var sx = Math.floor(x / sectionSize);
-		var sy = Math.floor(y / sectionSize);
-		var nx = x % sectionSize;
-		var ny = y % sectionSize;
-		return sections[sy][sx].nodes[ny][nx];
+	public function index(node: GridNode) {
+		return node.y * width * sectionSize + node.x;
 	}
 
 	public static function load(file) {
@@ -69,7 +74,7 @@ class Grid {
 		var grid = new Grid(data.width, data.height);
 		for (y in 0...data.height) {
 			for (x in 0...data.width) {
-				grid.getNode(x, y).solid = data.get(x, y).solid;
+				grid.get(x, y).solid = data.get(x, y).solid;
 			}
 		}
 		return grid;

@@ -1,8 +1,10 @@
 package client;
 
+import hxd.Event;
+import client.PlayerEntity;
+import h2d.Scene;
 import hxd.Key;
 import client.Dispatcher;
-import client.ClientEntity;
 import common.Player;
 
 class Input {

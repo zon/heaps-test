@@ -1,5 +1,6 @@
 -cp common
 -cp server
+-lib polygonal-ds
 -lib udprotean
 -lib bytetype
 -hl server.hl

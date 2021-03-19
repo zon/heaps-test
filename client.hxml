@@ -1,6 +1,7 @@
 -cp common
 -cp client
 -lib heaps
+-lib polygonal-ds
 -lib udprotean
 -lib bytetype
 -lib hlsdl
