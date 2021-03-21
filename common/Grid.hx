@@ -8,6 +8,7 @@ import haxe.ds.Vector;
 import common.Bounds;
 import common.GridSection;
 import common.Entity;
+import common.Calc;
 
 class Grid {
 	public var width: Int;
@@ -72,6 +73,76 @@ class Grid {
 
 	public function index(node: GridNode) {
 		return node.y * width * sectionSize + node.x;
+	}
+
+	public function raycast(ax: Int, ay: Int, bx: Int, by: Int): GridNode {
+		var vx = bx - ax;
+		var vy = by - ay;
+		var n = Calc.normal(vx, vy);
+		var nx = n.x;
+		var ny = n.y;
+		var sx = 1 / Math.abs(nx);
+		var sy = 1 / Math.abs(ny);
+
+		var tx = Math.floor(ax);
+		var ty = Math.floor(ay);
+		var tsx = nx < 0 ? -1 : 1;
+		var tsy = ny < 0 ? -1 : 1;
+		var gx = Math.floor(bx);
+		var gy = Math.floor(by);
+
+		var dx = 0.0;
+		var dy = 0.0;
+		if (nx >= 0) {
+			dx = 1 - (ax % 1);
+		} else {
+			dx = ax % 1;
+		}
+		if (ny >= 0) {
+			dy = 1 - (ay % 1);
+		} else {
+			dy = ay % 1;
+		}
+		dx = dx * sx;
+		dy = dy * sy;
+
+		var td = 0.0;
+		var m = Calc.mag(vx, vy);
+		var s = 0.0;
+		var tile = get(tx, ty);
+		var lx = ax * 1.0;
+		var ly = ay * 1.0;
+		while (td < m) {
+			var s = s + 1;
+
+			if (dx < dy) {
+				td = td + dx;
+				dy = dy - dx;
+				dx = sx;
+				tx = tx + tsx;
+			} else {
+				td = td + dy;
+				dx = dx - dy;
+				dy = sy;
+				ty = ty + tsy;
+			}
+
+			var px = ax + nx * td;
+			var py = ay + ny * td;
+			lx = px;
+			ly = py;
+
+			var last = tile;
+			tile = get(tx, ty);
+			if (tile == null || tile.solid) {
+				return last;
+
+			} else if (tile.x == gx && tile.y == gy) {
+				return tile;
+			}
+		}
+
+		return tile;
 	}
 
 	public static function load(file) {
