@@ -7,6 +7,8 @@ import common.GridNode;
 class Pathfinder {
 	public var grid: Grid;
 
+	public final moveCost = 10;
+
 	public function new(grid) {
 		this.grid = grid;
 	}
@@ -19,7 +21,7 @@ class Pathfinder {
 		};
 
 		var heuristic = function(n: GridNode) {
-			return Math.floor(Math.abs(goal.x - n.x) + Math.abs(goal.y - n.y));
+			return Math.floor(Math.abs(goal.x - n.x) + Math.abs(goal.y - n.y)) * moveCost;
 		};
 
 		return query(start, criteria, heuristic);
@@ -52,14 +54,23 @@ class Pathfinder {
 			var neighbors = new Array<GridNode>();
 			var x = current.x;
 			var y = current.y;
-			getPush(neighbors, x - 1, y);
-			getPush(neighbors, x + 1, y);
-			getPush(neighbors, x, y - 1);
-			getPush(neighbors, x, y + 1);
+			var left = getPush(neighbors, x - 1, y);
+			var right = getPush(neighbors, x + 1, y);
+			var up = getPush(neighbors, x, y - 1);
+			var down = getPush(neighbors, x, y + 1);
+			if (left && up) getPush(neighbors, x - 1, y - 1);
+			if (right && up) getPush(neighbors, x + 1, y - 1);
+			if (right && down) getPush(neighbors, x + 1, y + 1);
+			if (left && down) getPush(neighbors, x - 1, y + 1);
 
 			var baseCost = costs[index(current)];
 			for (next in neighbors) {
-				var nextCost = baseCost + 1;
+				var dx = next.x - x;
+				var dy = next.y - y;
+				var nextCost = baseCost + moveCost;
+				if (dx != 0 && dy != 0) {
+					nextCost += 4;
+				}
 				var prevCost = costs[index(next)];
 				if (prevCost == null || nextCost < prevCost) {
 					var ph = next.heuristic;
@@ -100,6 +111,9 @@ class Pathfinder {
 		var node = grid.get(x, y);
 		if (node != null && !node.solid)  {
 			arr.push(node);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
